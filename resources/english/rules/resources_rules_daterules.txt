@@ -26,7 +26,7 @@ RULENAME="x_date_historic_1c-BCADhint",EXTRACTION="(%reApproximate )?%reYearBC%r
 // EXAMPLE historic_2d:            March of 90   (2-digit year)
 RULENAME="date_historic_2a-BCADhint",EXTRACTION="(%reApproximate )?%reMonthLongShort (?:of )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(5))%normYearBC(group(4))-%normMonth(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
 RULENAME="date_historic_2b",EXTRACTION="(%reApproximate )?%reMonthLongShort (?:of )?([\d][\d][\d])",NORM_VALUE="%normYearBC(group(4))-%normMonth(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="date_historic_2c",EXTRACTION="[Ii]n %reMonthLongShort (?:of )?%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-%normMonth(group(1))",OFFSET="group(1)-group(2)"
+RULENAME="date_historic_2c",EXTRACTION="\b[Ii]n %reMonthLongShort (?:of )?%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-%normMonth(group(1))",OFFSET="group(1)-group(2)"
 RULENAME="date_historic_2d",EXTRACTION="%reMonthLongShort of %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-%normMonth(group(1))"
 
 // historic dates; day granularity
@@ -69,27 +69,27 @@ RULENAME="date_historic_6c-BCADhint",EXTRACTION="(%rePartWords )?([Tt]he )?(\d0)
 // EXAMPLE date_historic_7c: (newline)190(newline) (2- to 4-digit year)
 // EXAMPLE date_historic_7d: year of 90            (2-digit year)
 // EXAMPLE date_historic_7e: year of 190           (3-digit year) 
-RULENAME="date_historic_7a",EXTRACTION="(\b[Ii]n) (\d\d\d)",NORM_VALUE="%normYearBC(group(2))",OFFSET="group(2)-group(2)"
-RULENAME="date_historic_7b",EXTRACTION="(\b[Ii]n) (\d\d\d)(,)",NORM_VALUE="%normYearBC(group(2))",OFFSET="group(2)-group(2)"
+RULENAME="date_historic_7ab",EXTRACTION="\b[Ii]n (\d\d\d),?",NORM_VALUE="%normYearBC(group(1))",OFFSET="group(1)-group(1)"
+//RULENAME="date_historic_7b",EXTRACTION="\b[Ii]n (\d\d\d),",NORM_VALUE="%normYearBC(group(1))",OFFSET="group(1)-group(1)"
 RULENAME="date_historic_7c",EXTRACTION="\A(\d\d[\d]?[\d]?)\Z",NORM_VALUE="%normYearBC(group(1))"
-RULENAME="date_historic_7d",EXTRACTION="([Tt]he )?(year) (of) (\d\d)",NORM_VALUE="UNDEF-centurygroup(4)"
-RULENAME="date_historic_7e",EXTRACTION="([Tt]he )?(year) (of) (\d\d\d)",NORM_VALUE="%normYearBC(group(4))"
+RULENAME="date_historic_7d",EXTRACTION="(?:[Tt]he )?year of (\d\d)",NORM_VALUE="UNDEF-centurygroup(1)"
+RULENAME="date_historic_7e",EXTRACTION="(?:[Tt]he )?year of (\d\d\d)",NORM_VALUE="%normYearBC(group(1))"
 
 // historic dates; 2-digit year granularity (no AD / BC hints)
 // EXAMPLE date_historic_8a: (in) 90(,) (2-digit year)
 // EXAMPLE date_historic_8b: (in) 90    (2-digit year)
-RULENAME="date_historic_8a",EXTRACTION="(\b[Ii]n) (\d\d)(,)",NORM_VALUE="UNDEF-centurygroup(2)",OFFSET="group(2)-group(2)"
-RULENAME="date_historic_8b",EXTRACTION="(\b[Ii]n) (\d\d)",NORM_VALUE="UNDEF-centurygroup(2)",OFFSET="group(2)-group(2)"
+RULENAME="date_historic_8ab",EXTRACTION="\b[Ii]n (\d\d),?",NORM_VALUE="UNDEF-centurygroup(1)",OFFSET="group(1)-group(1)"
+//RULENAME="date_historic_8b",EXTRACTION="\b[Ii]n (\d\d)",NORM_VALUE="UNDEF-centurygroup(2)",OFFSET="group(2)-group(2)"
 
 // historic dates; negative rules
 // EXAMPLE date_historic_0a: in 90 cases          (2- to 4-digit year)
 // EXAMPLE date_historic_0b: in 90 nice cases     (2- to 4-digit year)
 // EXAMPLE date_historic_0c: in 90 nice law cases (2- to 4-digit year)
 // EXAMPLE date_historic_0d: in 90 percent        (2- to 4-digit year)
-RULENAME="date_historic_0a_negative",EXTRACTION="(\b[Ii]n) (%reYearBC )(\S+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(4):NNS:",OFFSET="group(2)-group(2)"
-RULENAME="date_historic_0b_negative",EXTRACTION="(\b[Ii]n) (%reYearBC )(\S+) (\S+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(4):JJ:group(5):NNS:",OFFSET="group(2)-group(2)"
-RULENAME="date_historic_0c_negative",EXTRACTION="(\b[Ii]n) (%reYearBC )(\S+) (\S+) (\S+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(4):JJ:group(5):NN:group(6):NNS:",OFFSET="group(2)-group(2)"
-RULENAME="date_historic_0d_negative",EXTRACTION="(\b[Ii]n) (%reYearBC )(kilometers?|miles?|foot|feet|dollars?|percents?|millions?|mi|ft|km|%|\$)",NORM_VALUE="REMOVE"
+RULENAME="date_historic_0a_negative",EXTRACTION="\b[Ii]n %reYearBC (\S+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NNS:",OFFSET="group(1)-group(1)"
+RULENAME="date_historic_0b_negative",EXTRACTION="\b[Ii]n %reYearBC (\S+) (\S+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):JJ:group(3):NNS:",OFFSET="group(1)-group(1)"
+RULENAME="date_historic_0c_negative",EXTRACTION="\b[Ii]n %reYearBC (\S+) (\S+) (\S+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):JJ:group(3):NN:group(4):NNS:",OFFSET="group(1)-group(1)"
+RULENAME="date_historic_0d_negative",EXTRACTION="\b[Ii]n %reYearBC (kilometers?|miles?|foot|feet|dollars?|percents?|millions?|mi|ft|km|%|\$)",NORM_VALUE="REMOVE"
 
 ////////////////////
 // POSITIVE RULES //
@@ -197,7 +197,7 @@ RULENAME="date_r7c",EXTRACTION="%reMonthLongShort (?:and|or|to|until) %reMonthLo
 // EXAMPLE r8a_2: May last year
 // EXAMPLE 
 RULENAME="date_r8a",EXTRACTION="%reMonthLong (?:the )?%reThisNextLast year",NORM_VALUE="UNDEF-%normThisNextLast(group(2))-year-%normMonth(group(1))"
-RULENAME="date_r8b",EXTRACTION="%reMonthLong of (that|the same) year",NORM_VALUE="UNDEF-REF-year-MINUS-0-%normMonth(group(1))"
+RULENAME="date_r8b",EXTRACTION="%reMonthLong of (?:that|the same) year",NORM_VALUE="UNDEF-REF-year-MINUS-0-%normMonth(group(1))"
 
 ////////////////////////
 // SEASON GRANULARITY //
@@ -207,10 +207,10 @@ RULENAME="date_r8b",EXTRACTION="%reMonthLong of (that|the same) year",NORM_VALUE
 // EXAMPLE r9b_1: winter 2001
 // EXAMPLE r9b_1: winter of 2001
 // EXAMPLE r9c_1: summer of 69
-RULENAME="date_r9a",EXTRACTION="(%rePartWords |[Tt]he |)%reSeason",NORM_VALUE="UNDEF-year-%normSeason(group(3))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r9b",EXTRACTION="(%rePartWords |[Tt]he |)%reSeason (of )?%reYear4Digit",NORM_VALUE="group(5)-%normSeason(group(3))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r9c",EXTRACTION="(%rePartWords |[Tt]he |)%reSeason (of )?'?%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(5)-%normSeason(group(3))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r9d",EXTRACTION="(%rePartWords |[Tt]he |)%reSeason (of )?%reNumWordTeen[ -]%reNumWord2D",NORM_VALUE="%normDurationNumber(group(5))%normDurationNumber(group(6))-%normSeason(group(3))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r9a",EXTRACTION="(?:%rePartWords |[Tt]he |)%reSeason",NORM_VALUE="UNDEF-year-%normSeason(group(2))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r9b",EXTRACTION="(?:%rePartWords |[Tt]he |)%reSeason (?:of )?%reYear4Digit",NORM_VALUE="group(3)-%normSeason(group(2))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r9c",EXTRACTION="(?:%rePartWords |[Tt]he |)%reSeason (?:of )?'?%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(3)-%normSeason(group(2))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r9d",EXTRACTION="(?:%rePartWords |[Tt]he |)%reSeason (?:of )?%reNumWordTeen[ -]%reNumWord2D",NORM_VALUE="%normDurationNumber(group(3))%normDurationNumber(group(4))-%normSeason(group(2))",NORM_MOD="%normPartWords(group(1))"
 
 
 //////////////////////////////
@@ -351,9 +351,9 @@ RULENAME="date_r20e",EXTRACTION="recent %reUnit",NORM_VALUE="PAST_REF",FAST_CHEC
 // EXAMPLE r21a_1: twenty days earlier
 // EXAMPLE r21b_1: about 20 days earlier
 // EXAMPLE r21c_1: a year earlier
-RULENAME="date_r21a",EXTRACTION="(%reApproximate )?%reNumWord12D %reUnitFine earlier",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-MINUS-%normDurationNumber(group(3))",NORM_MOD="%normApprox4Dates(group(2))",FAST_CHECK="\searlier"
-RULENAME="date_r21b",EXTRACTION="(%reApproximate )?(\d+) %reUnitFine earlier",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-MINUS-group(3)",NORM_MOD="%normApprox4Dates(group(2))",FAST_CHECK="\searlier"
-RULENAME="date_r21c",EXTRACTION="(%reApproximate )?an? %reUnit earlier",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-MINUS-1",NORM_MOD="%normApprox4Dates(group(2))",FAST_CHECK="\searlier"
+RULENAME="date_r21a",EXTRACTION="(?:%reApproximate )?%reNumWord12D %reUnitFine earlier",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-MINUS-%normDurationNumber(group(2))",NORM_MOD="%normApprox4Dates(group(1))",FAST_CHECK="\searlier"
+RULENAME="date_r21b",EXTRACTION="(?:%reApproximate )?(\d+) %reUnitFine earlier",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-MINUS-group(2)",NORM_MOD="%normApprox4Dates(group(1))",FAST_CHECK="\searlier"
+RULENAME="date_r21c",EXTRACTION="(?:%reApproximate )?an? %reUnit earlier",NORM_VALUE="UNDEF-REF-%normUnit(group(2))-MINUS-1",NORM_MOD="%normApprox4Dates(group(1))",FAST_CHECK="\searlier"
 
 // date_r24 (ago/earlier/later normalizing with REFUNIT)
 // EXAMPLE r22a_1: a year ago
