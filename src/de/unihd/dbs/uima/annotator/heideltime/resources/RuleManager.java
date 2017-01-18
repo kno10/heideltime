@@ -108,6 +108,8 @@ public class RuleManager extends GenericResourceManager {
 				case "temponymrules":
 					rules = hmTemponymRules;
 					break;
+				case "intervalrules": // Handled separately.
+					continue;
 				default:
 					LOG.debug("Resource type not recognized by HeidelTime: {}", resource);
 					continue;
@@ -142,7 +144,7 @@ public class RuleManager extends GenericResourceManager {
 					rule_extraction = replaceSpaces(rule_extraction);
 					Pattern pattern = null;
 					try {
-						LOG.trace("Compiling pattern: {}", rule_extraction);
+						LOG.trace("Compiling pattern {}: {}", rule_name, rule_extraction);
 						pattern = Pattern.compile(rule_extraction);
 					} catch (java.util.regex.PatternSyntaxException e) {
 						LOG.error("Compiling rules resulted in errors.", e);
@@ -211,8 +213,7 @@ public class RuleManager extends GenericResourceManager {
 		StringBuilder buf = new StringBuilder();
 		int pos = 0;
 		do {
-			if (LOG.isTraceEnabled())
-				LOG.trace("replacing pattern {}", matcher.group());
+			// Too verbose: if (LOG.isTraceEnabled()) LOG.trace("replacing pattern {}", matcher.group());
 			String varname = matcher.group(1);
 			String rep = rpm.get(varname);
 			if (rep == null) {
