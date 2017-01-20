@@ -261,8 +261,8 @@ RULENAME="date_r20b",EXTRACTION="(?:%reApproximate )?%reNumWord12D %reUnitFine (
 RULENAME="date_r20c",EXTRACTION="(?:%reApproximate )?(\d+) %reUnitFine (?:later|into)",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-group(2)",NORM_MOD="%normApprox4Dates(group(1))"
 RULENAME="date_r20d",EXTRACTION="(?:%reApproximate )?an? %reUnitFine (?:later|into)",NORM_VALUE="UNDEF-REF-%normUnit(group(2))-PLUS-1",NORM_MOD="%normApprox4Dates(group(1))"
 RULENAME="date_r20e",EXTRACTION="recent %reUnit",NORM_VALUE="PAST_REF"
-RULENAME="date_r20f",EXTRACTION="\b[Oo]n ((?:%reApproximate )?(\d+) %reUnitFine)",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-group(3)",NORM_MOD="%normApprox4Dates(group(2))",GROUP="group(1)-group(1)"
-RULENAME="date_r20g",EXTRACTION="\b[Oo]n ((?:%reApproximate )?%reNumWord12D %reUnitFine)",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-%normDurationNumber(group(3))",NORM_MOD="%normApprox4Dates(group(2))",GROUP="group(1)-group(1)"
+RULENAME="date_r20f",EXTRACTION="[Oo]n ((?:%reApproximate )?(\d+) %reUnitFine)",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-group(3)",NORM_MOD="%normApprox4Dates(group(2))",GROUP="group(1)-group(1)"
+RULENAME="date_r20g",EXTRACTION="[Oo]n ((?:%reApproximate )?%reNumWord12D %reUnitFine)",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-%normDurationNumber(group(3))",NORM_MOD="%normApprox4Dates(group(2))",GROUP="group(1)-group(1)"
 
 // date_r21 (earlier)
 // EXAMPLE r21a_1: twenty days earlier
@@ -300,7 +300,6 @@ RULENAME="date_r24a",EXTRACTION="%reHolidayFix",NORM_VALUE="UNDEF-year-%normHoli
 RULENAME="date_r24b",EXTRACTION="%reHolidayFix %reYear4Digit",NORM_VALUE="group(2)-%normHolidayFix(group(1))"
 RULENAME="date_r24cd",EXTRACTION="%reHolidayFix '?+%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-%normHolidayFix(group(1))"
 
-
 //date_r25
 //EXAMPLE r25a_1: Eastersunday
 //EXAMPLE r25b_1: Eastersunday 2010
@@ -333,7 +332,7 @@ RULENAME="x_date_historic_1c-BCADhint",EXTRACTION="(?:%reApproximate )?%reYearBC
 // EXAMPLE historic_2d:            March of 90   (2-digit year)
 RULENAME="date_historic_2a-BCADhint",EXTRACTION="(?:%reApproximate )?%reMonthLongShort (?:of )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normMonth(group(2))",NORM_MOD="%normApprox4Dates(group(1))"
 RULENAME="date_historic_2b",EXTRACTION="(?:%reApproximate )?%reMonthLongShort (?:of )?([\d][\d][\d])",NORM_VALUE="%normYearBC(group(3))-%normMonth(group(2))",NORM_MOD="%normApprox4Dates(group(1))"
-RULENAME="date_historic_2c",EXTRACTION="\b[Ii]n %reMonthLongShort %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-%normMonth(group(1))",OFFSET="group(1)-group(2)"
+RULENAME="date_historic_2c",EXTRACTION="[Ii]n %reMonthLongShort %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-%normMonth(group(1))",OFFSET="group(1)-group(2)"
 RULENAME="date_historic_2d",EXTRACTION="%reMonthLongShort of %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-%normMonth(group(1))"
 
 // historic dates; day granularity
@@ -376,8 +375,8 @@ RULENAME="date_historic_6c-BCADhint",EXTRACTION="(?:%rePartWords )?(?:[Tt]he )?(
 // EXAMPLE date_historic_7c: (newline)190(newline) (2- to 4-digit year)
 // EXAMPLE date_historic_7d: year of 90            (2-digit year)
 // EXAMPLE date_historic_7e: year of 190           (3-digit year) 
-RULENAME="date_historic_7ab",EXTRACTION="\b[Ii]n ([0-9][0-9][0-9]),?",NORM_VALUE="%normYearBC(group(1))",OFFSET="group(1)-group(1)"
-//RULENAME="date_historic_7b",EXTRACTION="\b[Ii]n ([0-9][0-9][0-9]),",NORM_VALUE="%normYearBC(group(1))",OFFSET="group(1)-group(1)"
+RULENAME="date_historic_7ab",EXTRACTION="[Ii]n ([0-9][0-9][0-9]),?",NORM_VALUE="%normYearBC(group(1))",OFFSET="group(1)-group(1)"
+//RULENAME="date_historic_7b",EXTRACTION="[Ii]n ([0-9][0-9][0-9]),",NORM_VALUE="%normYearBC(group(1))",OFFSET="group(1)-group(1)"
 //RULENAME="date_historic_7c",EXTRACTION="\A([0-9][0-9][0-9]?[0-9]?)\Z",NORM_VALUE="%normYearBC(group(1))"
 RULENAME="date_historic_7d",EXTRACTION="(?:[Tt]he )?year of ([0-9][0-9])",NORM_VALUE="UNDEF-centurygroup(1)"
 RULENAME="date_historic_7e",EXTRACTION="(?:[Tt]he )?year of ([0-9][0-9][0-9])",NORM_VALUE="%normYearBC(group(1))"
@@ -385,8 +384,8 @@ RULENAME="date_historic_7e",EXTRACTION="(?:[Tt]he )?year of ([0-9][0-9][0-9])",N
 // historic dates; 2-digit year granularity (no AD / BC hints)
 // EXAMPLE date_historic_8a: (in) 90(,) (2-digit year)
 // EXAMPLE date_historic_8b: (in) 90    (2-digit year)
-RULENAME="date_historic_8ab",EXTRACTION="\b[Ii]n ([0-9][0-9]),?",NORM_VALUE="UNDEF-centurygroup(1)",OFFSET="group(1)-group(1)"
-//RULENAME="date_historic_8b",EXTRACTION="\b[Ii]n ([0-9][0-9])",NORM_VALUE="UNDEF-centurygroup(2)",OFFSET="group(2)-group(2)"
+RULENAME="date_historic_8ab",EXTRACTION="[Ii]n ([0-9][0-9]),?",NORM_VALUE="UNDEF-centurygroup(1)",OFFSET="group(1)-group(1)"
+//RULENAME="date_historic_8b",EXTRACTION="[Ii]n ([0-9][0-9])",NORM_VALUE="UNDEF-centurygroup(2)",OFFSET="group(2)-group(2)"
 
 // historic dates; negative rules
 // EXAMPLE date_historic_0a: in 90 cases          (2- to 4-digit year)
@@ -404,7 +403,7 @@ RULENAME="date_historic_0d_negative",EXTRACTION="[Ii]n %reYearBC (?:kilometers?|
 ////////////////////
 // EXAMPLE r1a_negative_1: as soon as (do not match soon if it is in "as soon as")
 // "soon" should not be matched at all (2015-03-22, Jannik); removed from pattern
-//RULENAME="x_date_r1_negative",EXTRACTION="\bas soon as",NORM_VALUE="REMOVE"
+//RULENAME="x_date_r1_negative",EXTRACTION="as soon as",NORM_VALUE="REMOVE"
 
 // EXAMPLE r2a_negative_1: they march the way (if it is a verb)
 // EXAMPLE r2b_negative_1: they march the way (if it is a verb)
@@ -452,7 +451,7 @@ RULENAME="x_date_r9a_negative",EXTRACTION="(?:[Ee]uro|EUR|Dollar|USD|[$€£¥¤
 
 // Issue # 29 - addressed Sept 16, 2015 (heideltime 2.0)
 // EXAMPLE"in his 20s"
-RULENAME="x_date_r11a_negative",EXTRACTION="\b[Ii]n (?:his|her|their) \d\ds",NORM_VALUE="REMOVE"
+RULENAME="x_date_r11a_negative",EXTRACTION="[Ii]n (?:his|her|their) \d\ds",NORM_VALUE="REMOVE"
 
 // 2017-01-18 false positives: third half-century, sixth half-hour episode
 RULENAME="date_r10a_negative",EXTRACTION="\shalf-%reUnit",NORM_VALUE="REMOVE"
