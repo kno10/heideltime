@@ -1052,7 +1052,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 							} else if (op.equals("PLUS")) {
 								// diff = diff * 7;
 							}
-							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextWeek(dct.dctYear + "-W" + norm.normNumber(dct.dctWeek), diff, language));
+							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextWeek(dct.dctYear + "-W" + norm.normNumber(dct.dctWeek), diff));
 						} else {
 							String lmDay = ContextAnalyzer.getLastMentionedDay(linearDates, i);
 							if (lmDay.length() == 0) {
@@ -1304,13 +1304,13 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			else if (ambigString.startsWith("UNDEF-last-week")) {
 				String checkUndef = "UNDEF-last-week";
 				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
-					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextWeek(dct.dctYear + "-W" + norm.normNumber(dct.dctWeek), -1, language));
+					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextWeek(dct.dctYear + "-W" + norm.normNumber(dct.dctWeek), -1));
 				} else {
 					String lmWeek = ContextAnalyzer.getLastMentionedWeek(linearDates, i);
 					if (lmWeek.length() == 0) {
 						valueNew = valueNew.replace(checkUndef, "XXXX-WXX");
 					} else {
-						String nextWeek = DateCalculator.getXNextWeek(lmWeek, -1, language);
+						String nextWeek = DateCalculator.getXNextWeek(lmWeek, -1);
 						if (nextWeek.length() == 0) {
 							valueNew = valueNew.replace(checkUndef, "XXXX-WXX");
 						} else {
@@ -1333,13 +1333,13 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			} else if (ambigString.startsWith("UNDEF-next-week")) {
 				String checkUndef = "UNDEF-next-week";
 				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
-					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextWeek(dct.dctYear + "-W" + norm.normNumber(dct.dctWeek), 1, language));
+					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextWeek(dct.dctYear + "-W" + norm.normNumber(dct.dctWeek), 1));
 				} else {
 					String lmWeek = ContextAnalyzer.getLastMentionedWeek(linearDates, i);
 					if (lmWeek.length() == 0) {
 						valueNew = valueNew.replace(checkUndef, "XXXX-WXX");
 					} else {
-						valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextWeek(lmWeek, 1, language));
+						valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextWeek(lmWeek, 1));
 					}
 				}
 			}
