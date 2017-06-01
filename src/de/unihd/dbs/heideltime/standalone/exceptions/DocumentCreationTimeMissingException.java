@@ -10,23 +10,19 @@
  *
  * HeidelTime is a multilingual, cross-domain temporal tagger.
  * For details, see http://dbs.ifi.uni-heidelberg.de/heideltime
- */ 
+ */
 
 package de.unihd.dbs.heideltime.standalone.exceptions;
 
-import de.unihd.dbs.heideltime.standalone.DocumentType;
-
 /**
  * Exception thrown if document creation time is missing while processing a document of type {@link DocumentType#NEWS}
- * 
+ *
  * @author Andreas Fay, University of Heidelberg
  * @version 1.0
  */
 public class DocumentCreationTimeMissingException extends Exception {
-
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -157033697488394828L;
-
 }

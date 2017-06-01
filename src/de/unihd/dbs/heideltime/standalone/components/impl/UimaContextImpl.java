@@ -10,7 +10,7 @@
  *
  * HeidelTime is a multilingual, cross-domain temporal tagger.
  * For details, see http://dbs.ifi.uni-heidelberg.de/heideltime
- */ 
+ */
 
 package de.unihd.dbs.heideltime.standalone.components.impl;
 
@@ -20,12 +20,12 @@ import org.apache.uima.resource.impl.ConfigurationManager_impl;
 import org.apache.uima.resource.impl.ResourceManager_impl;
 
 import de.unihd.dbs.heideltime.standalone.Config;
-import de.unihd.dbs.heideltime.standalone.DocumentType;
+import de.unihd.dbs.uima.annotator.heideltime.DocumentType;
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 
 /**
  * Implementation of UimaContext
- * 
+ *
  * @author Andreas Fay, University of Heidelberg
  * @version 1.0
  */
@@ -34,7 +34,7 @@ public class UimaContextImpl extends RootUimaContext_impl {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param language
 	 *            Language to process
 	 * @param typeToProcess
@@ -80,7 +80,7 @@ public class UimaContextImpl extends RootUimaContext_impl {
 				new Boolean(true));
 
 	}
-	
+
 	@Override
 	public ConfigurationManager getConfigurationManager() {
 		return mConfigManager;
