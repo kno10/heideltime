@@ -552,7 +552,7 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 	@Test
 	public void testdate_r21c() {
 		testSingleCase("a week earlier", //
-				new String[] { "date_r21c", "a week earlier", "XXXX-XX-XX" });
+				new String[] { "date_r21c", "a week earlier", "XXXX-WXX" });
 	}
 
 	@Test
