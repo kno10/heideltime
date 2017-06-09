@@ -175,16 +175,12 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		/////////////////////////////
 		// PRINT WHAT WILL BE DONE //
 		/////////////////////////////
-		if (find_dates)
-			LOG.debug("Getting Dates...");
-		if (find_times)
-			LOG.debug("Getting Times...");
-		if (find_durations)
-			LOG.debug("Getting Durations...");
-		if (find_sets)
-			LOG.debug("Getting Sets...");
-		if (find_temponyms)
-			LOG.debug("Getting Temponyms...");
+		LOG.debug("Enabled modules:{}{}{}{}{}", //
+				find_dates ? " dates" : "", //
+				find_times ? " times" : "", //
+				find_durations ? " durations" : "", //
+				find_sets ? " sets" : "", //
+				find_temponyms ? " temponyms" : "");
 
 		if (resolver == null)
 			resolver = new ResolveAmbiguousValues();
@@ -228,6 +224,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		for (Sentence s : sentences) {
 			try {
 				final CharSequence coveredText = TokenBoundaryMatcher.simplifyString(s.getCoveredText());
+				if (LOG.isTraceEnabled())
+					LOG.trace("Sentence {}: {}", s.getSentenceId(), coveredText);
 
 				// Build a list of "good" token positions to anchor matches:
 				matcher.tokenBoundaries(coveredText, s, jcas);
@@ -600,7 +598,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 
 		// iterate over the selected sets and merge information, remove old timexes
 		for (ArrayList<Timex3> tSet : effectivelyToInspect) {
-			Timex3 newTimex = new Timex3(jcas);
+			Timex3 newTimex;
 
 			// if a timex has the timex value REMOVE, remove it from consideration
 			@SuppressWarnings("unchecked")
@@ -637,7 +635,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						allSameTypes = false;
 					}
 				}
-				LOG.trace("Are these overlapping timexes of same type? => {}", allSameTypes);
+				if (LOG.isTraceEnabled())
+					LOG.trace("Are these overlapping timexes of same type? => {}", allSameTypes);
 
 				// check timex value attribute string length
 				if (longestTimex == null) {
@@ -652,14 +651,16 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				} else if (longestTimex.getTimexValue().length() < t.getTimexValue().length()) {
 					longestTimex = t;
 				}
-				LOG.debug("Selected {}: {} [{}] as the longest-valued timex.", longestTimex.getTimexId(), longestTimex.getCoveredText(), longestTimex.getTimexValue());
+				if (LOG.isTraceEnabled())
+					LOG.trace("Selected {}: {} [{}] as the longest-valued timex.", longestTimex.getTimexId(), longestTimex.getCoveredText(), longestTimex.getTimexValue());
 
 				// check combined beginning/end
 				if (combinedBegin > t.getBegin())
 					combinedBegin = t.getBegin();
 				if (combinedEnd < t.getEnd())
 					combinedEnd = t.getEnd();
-				LOG.debug("Selected combined constraints: {}:{}", combinedBegin, combinedEnd);
+				if (LOG.isTraceEnabled())
+					LOG.trace("Selected combined constraints: {}:{}", combinedBegin, combinedEnd);
 
 				// disassemble and remember the token ids
 				if (doAllTokIds) {
@@ -815,7 +816,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				String pos_as_is = getPosFromMatchResult(tokenBegin, tokenEnd, s, jcas);
 				if (!pos_as_is.matches(pos))
 					return false;
-				LOG.debug("POS CONSTRAINT IS VALID: pos should be {} and is {}", pos, pos_as_is);
+				if (LOG.isTraceEnabled())
+					LOG.trace("POS CONSTRAINT IS VALID: pos should be {} and is {}", pos, pos_as_is);
 			} catch (IndexOutOfBoundsException e) {
 				LOG.debug("Bad group number in rule {}", rule);
 			}

@@ -737,9 +737,9 @@ class ResolveAmbiguousValues {
 				t_i.setEmptyValue(specifyAmbiguousValuesString(t_i.getEmptyValue(), t_i, i, linearDates, jcas));
 
 			t_i.removeFromIndexes();
-			if (LOG.isDebugEnabled())
-				LOG.debug("{} DISAMBIGUATION PHASE: foundBy: {} text: {} value: {} NEW value: {} ", //
-						t_i.getTimexId(), t_i.getFoundByRule(), t_i.getCoveredText(), t_i.getTimexValue(), valueNew);
+			if (LOG.isDebugEnabled() && !valueNew.equals(t_i.getTimexValue()))
+				LOG.debug("{} {} DISAMBIGUATION: foundBy: {} text: {} value: {} NEW value: {} ", //
+						t_i.getSentId(), t_i.getTimexId(), t_i.getFoundByRule(), t_i.getCoveredText(), t_i.getTimexValue(), valueNew);
 
 			t_i.setTimexValue(valueNew);
 			t_i.addToIndexes();
