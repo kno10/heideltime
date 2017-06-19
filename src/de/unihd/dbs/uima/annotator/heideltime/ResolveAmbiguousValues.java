@@ -194,6 +194,8 @@ class ResolveAmbiguousValues {
 			return null;
 		}
 		String rep = adjustByUnit(linearDates, i, dct, unit, sdiff, true);
+		if (rep == null)
+			return ambigString;
 		StringBuilder valueNew = join(rep, ambigString, m.end());
 		if ("year".equals(unit))
 			handleFiscalYear(valueNew);
@@ -293,6 +295,19 @@ class ResolveAmbiguousValues {
 		case "hour":
 			// FIXME: support these, too?
 			return null;
+		case "week-WE":
+			// TODO: assert not BC?
+			if (fuzz /* && (sdiff > 1 || sdiff < -1) */) { // Use week precision
+				if (dct != null)
+					return getXNextWeek(dct.dctYear + "-W" + norm.normNumber(dct.dctWeek), sdiff);
+				String lmWeek = getLastMentionedWeek(linearDates, i);
+				return lmWeek.isEmpty() ? "XXXX-WXX-WE" : getXNextWeek(lmWeek, sdiff);
+			}
+			// Use day precision, if possible
+			if (dct != null)
+				return getXNextWeek(dct.dctYear, dct.dctMonth, dct.dctDay, sdiff) + "-WE";
+			String lmWeek = getLastMentionedWeek(linearDates, i);
+			return lmWeek.isEmpty() ? "XXXX-WXX-WE" : getXNextWeek(lmWeek, sdiff) + "-WE";
 		default:
 			LOG.warn("Unknown unit {}", unit);
 			return null;
@@ -560,7 +575,7 @@ class ResolveAmbiguousValues {
 				repl = newYear + "-" + newSeason;
 			} else { // NARRATVIE DOCUMENT
 				String lmSeason = getLastMentionedSeason(linearDates, i, language);
-				if (lmSeason != null && lmSeason.isEmpty()) {
+				if (lmSeason != null && !lmSeason.isEmpty()) {
 					Season se = Season.of(lmSeason, 5);
 					int newYear = parseInt(lmSeason, 0, 4) - (newSeason.ord() < se.ord() ? 1 : 0);
 					// TODO: 'format' year? could be < 1000.
